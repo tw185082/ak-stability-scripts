@@ -16,11 +16,12 @@ lines = fh.readlines()
 result = []
 for line in lines:
     # Filter commit messages starting with ALOHAP-, non-merges
-    if 'ALOHAP-' in line and 'Merge pull' not in line and 'Merge branch' not in line:
-        # Ignore duplicate messages
-        if line.strip() not in result:
-            result.append(line.strip())
-            result.append('\n')
+    if 'ALOHAP-'.lower() in line.lower() or 'ALOHAP -'.lower() in line.lower():
+        if 'Merge pull' not in line and 'Merge branch' not in line:
+            # Ignore duplicate messages
+            if line.strip() not in result:
+                result.append(line.strip())
+                result.append('\n')
 
 fh2.writelines(result)
 
